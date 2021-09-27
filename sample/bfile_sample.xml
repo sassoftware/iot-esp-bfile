@@ -1,0 +1,48 @@
+<project name="bfile_sample" threads="1" pubsub="auto" heartbeat-interval="1">
+  <metadata>
+    <meta id="studioUploadedBy">anonymousUser</meta>
+    <meta id="studioUploaded">1628251391080</meta>
+    <meta id="studioModifiedBy">anonymousUser</meta>
+    <meta id="studioModified">1628277982678</meta>
+    <meta id="layout">{"cq1":{"Filter":{"x":-105,"y":-100},"Source":{"x":-105,"y":-205}}}</meta>
+  </metadata>
+  <contqueries>
+    <contquery name="cq1">
+      <windows>
+        <window-source index="pi_EMPTY" insert-only="true" autogen-key="true" name="Source">
+          <schema>
+            <fields>
+              <field name="id" type="int64" key="true"/>
+              <field name="data" type="blob"/>
+            </fields>
+          </schema>
+          <connectors>
+            <connector class="bfile" name="bfile_in">
+              <properties>
+                <property name="type"><![CDATA[pub]]></property>
+                <property name="path"><![CDATA[sample/data/in]]></property>
+                <property name="filename_rgx"><![CDATA[.*(\.jpg)]]></property>
+              </properties>
+            </connector>
+          </connectors>
+        </window-source>
+        <window-filter index="pi_EMPTY" name="Filter">
+          <expression><![CDATA[1 == 1]]></expression>
+          <connectors>
+            <connector class="bfile" name="bfile_out">
+              <properties>
+                <property name="type"><![CDATA[sub]]></property>
+                <property name="snapshot"><![CDATA[false]]></property>
+                <property name="filename"><![CDATA[sample/data/out/data_.jpeg]]></property>
+                <property name="datafieldname"><![CDATA[data]]></property>
+              </properties>
+            </connector>
+          </connectors>
+        </window-filter>
+      </windows>
+      <edges>
+        <edge source="Source" target="Filter"/>
+      </edges>
+    </contquery>
+  </contqueries>
+</project>
